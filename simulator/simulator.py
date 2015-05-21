@@ -66,7 +66,11 @@ class Simulator(object):
         return c
 
     def connect(self, channel, a, b):
-        """Connect two nodes with a channel."""
+        """
+        Connect two nodes with a channel.
+
+        Connects node a to node b using the given channel.
+        """
         a.sender.channels.append(channel)
         channel.receivers.append(b)
 

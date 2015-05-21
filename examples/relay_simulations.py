@@ -52,21 +52,21 @@ def relay_simulation(symbols,
 
     sink = s.create_sink()
 
-    channel0 = s.create_channel(error_source_sink)
+    channel0 = s.create_channel(channel_condition=error_source_sink)
 
-    s.connect(channel0, source, sink)
+    s.connect(channel=channel0, a=source, b=sink)
 
-    channel1 = s.create_channel(error_source_relay)
-    channel2 = s.create_channel(error_relay_sink)
+    channel1 = s.create_channel(channel_condition=error_source_relay)
+    channel2 = s.create_channel(channel_condition=error_relay_sink)
 
     for i in range(relay_count):
         relay = s.create_relay()
         relay.transmit_every_tick = transmit_every_tick
         relay.recode_on = relay_recode
-        s.connect(channel1, source, relay)
-        s.connect(channel2, relay, sink)
+        s.connect(channel=channel1, a=source, b=relay)
+        s.connect(channel=channel2, a=relay, b=sink)
 
-    s.run(lambda: sink.receiver.decoder.is_complete())
+    s.run(done=lambda: sink.receiver.decoder.is_complete())
 
     return s.get_statistics()
 
@@ -80,7 +80,7 @@ def main():
         "--runs",
         help="Set number of runs.",
         type=int,
-        default=10000)
+        default=100)
     parser.add_argument(
         "--symbols",
         help="Set symbols.",
@@ -132,15 +132,15 @@ def main():
     results = simulator.ResultSet()
     for run in range(args.runs):
         results.add(relay_simulation(
-            args.symbols,
-            args.symbol_size,
-            args.error_source_sink,
-            args.error_source_relay,
-            args.error_relay_sink,
-            args.relay_count,
-            args.source_non_systematic,
-            args.transmit_every_tick,
-            args.relay_recode))
+            symbols=args.symbols,
+            symbol_size=args.symbol_size,
+            error_source_sink=args.error_source_sink,
+            error_source_relay=args.error_source_relay,
+            error_relay_sink=args.error_relay_sink,
+            relay_count=args.relay_count,
+            source_non_systematic=args.source_non_systematic,
+            transmit_every_tick=args.transmit_every_tick,
+            relay_recode=args.relay_recode))
 
     print(results)
 
