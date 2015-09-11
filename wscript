@@ -120,7 +120,7 @@ def build(bld):
         recurse_helper(bld, 'sak')
         recurse_helper(bld, 'kodo-python')
 
-    # Define a dummy task to force the compilation of kodo-python library
+    # Define a dummy task to force the compilation of the kodo-python library
     bld(features='cxx test',
         use=['kodo-python'])
 
@@ -140,7 +140,8 @@ def exec_test_simulations(bld):
     kodo_ext = bld.get_tgen_by_name('kodo-python').link_task.outputs[0]
     env['PYTHONPATH'] = kodo_ext.parent.abspath()
 
-    # First, run the unit tests in the 'test' folder
+    # First, run the unit tests in the 'test' folder (the unittest module
+    # automatically discovers all files matching the 'test*.py' pattern)
     if os.path.exists('test'):
         cwd = 'test'
         bld.cmd_and_log('"{0}" -m unittest discover\n'.format(python),
