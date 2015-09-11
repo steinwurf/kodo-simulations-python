@@ -75,7 +75,7 @@ class Simulator(object):
         channel.receivers.append(b)
 
     def run(self, done):
-        """Run Simulation."""
+        """Run simulator."""
         while not done():
             map(lambda sender: sender.tick(), self.sources + self.relays)
 

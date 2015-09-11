@@ -19,7 +19,7 @@ def relay_simulation(symbols,
                      transmit_every_tick,
                      relay_recode):
     """
-    Simple relay simulation.
+    Simple relay simulator.
 
     The simulation has the following topology:
 
@@ -72,7 +72,7 @@ def relay_simulation(symbols,
 
 
 def main():
-    """Handle options and run simulation."""
+    """Handle options and run simulator."""
     parser = argparse.ArgumentParser(
         description=relay_simulation.__doc__,
         formatter_class=argparse.RawTextHelpFormatter)
