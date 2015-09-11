@@ -3,6 +3,7 @@
 
 import sys
 sys.path.append('..')
+sys.path.append('mock')
 
 import unittest
 from mock import Mock
