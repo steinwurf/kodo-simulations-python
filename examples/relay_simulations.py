@@ -66,7 +66,9 @@ def relay_simulation(symbols,
         s.connect(channel=channel1, a=source, b=relay)
         s.connect(channel=channel2, a=relay, b=sink)
 
-    s.run(done=lambda: sink.receiver.decoder.is_complete())
+    # TODO: The 'run' function leads to an endless loop in Python 3
+    if sys.version_info[:2] < (3, 0):
+        s.run(done=lambda: sink.receiver.decoder.is_complete())
 
     return s.get_statistics()
 
