@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # encoding: utf-8
 
-import receiver
+from . import receiver
 
 
 class Sink(object):

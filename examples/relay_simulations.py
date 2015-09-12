@@ -19,7 +19,7 @@ def relay_simulation(symbols,
                      transmit_every_tick,
                      relay_recode):
     """
-    Simple relay simulation.
+    Simple relay simulator.
 
     The simulation has the following topology:
 
@@ -66,13 +66,15 @@ def relay_simulation(symbols,
         s.connect(channel=channel1, a=source, b=relay)
         s.connect(channel=channel2, a=relay, b=sink)
 
-    s.run(done=lambda: sink.receiver.decoder.is_complete())
+    # TODO: The 'run' function leads to an endless loop in Python 3
+    if sys.version_info[:2] < (3, 0):
+        s.run(done=lambda: sink.receiver.decoder.is_complete())
 
     return s.get_statistics()
 
 
 def main():
-    """Handle options and run simulation."""
+    """Handle options and run simulator."""
     parser = argparse.ArgumentParser(
         description=relay_simulation.__doc__,
         formatter_class=argparse.RawTextHelpFormatter)

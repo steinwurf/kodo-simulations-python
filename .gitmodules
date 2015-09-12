@@ -1,0 +1,4 @@
+[submodule "test/mock"]
+    path = test/mock
+    url = git@github.com:testing-cabal/mock.git
+    ignore = dirty
