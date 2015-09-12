@@ -2,10 +2,11 @@
 # encoding: utf-8
 
 import collections
-import source
-import relay
-import sink
-import channel
+
+from . import source
+from . import relay
+from . import sink
+from . import channel
 
 
 class Simulator(object):

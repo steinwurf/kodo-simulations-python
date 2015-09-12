@@ -1,9 +1,10 @@
 #! /usr/bin/env python
 # encoding: utf-8
 
-import packet
-import sender
 import os
+
+from . import packet
+from . import sender
 
 
 class Source(object):

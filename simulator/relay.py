@@ -2,9 +2,10 @@
 # encoding: utf-8
 
 import copy
-import packet
-import receiver
-import sender
+
+from . import packet
+from . import receiver
+from . import sender
 
 
 class Relay(object):
