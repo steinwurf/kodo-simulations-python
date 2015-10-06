@@ -28,6 +28,11 @@ def resolve(ctx):
         major=3))
 
     ctx.add_dependency(resolve.ResolveVersion(
+        name='boost',
+        git_repository='github.com/steinwurf/boost.git',
+        major=2))
+
+    ctx.add_dependency(resolve.ResolveVersion(
         name='kodo-python',
         git_repository='github.com/steinwurf/kodo-python.git',
         major=9))
