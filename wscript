@@ -28,11 +28,6 @@ def resolve(ctx):
         major=3))
 
     ctx.add_dependency(resolve.ResolveVersion(
-        name='boost',
-        git_repository='github.com/steinwurf/boost.git',
-        major=2))
-
-    ctx.add_dependency(resolve.ResolveVersion(
         name='kodo-python',
         git_repository='github.com/steinwurf/kodo-python.git',
         major=9))
@@ -41,10 +36,6 @@ def resolve(ctx):
 def configure(conf):
 
     conf.load("wurf_common_tools")
-
-    # Ensure that Python is configured properly
-    if not conf.env['BUILD_PYTHON']:
-        conf.fatal('Python was not configured properly')
 
 
 def build(bld):
