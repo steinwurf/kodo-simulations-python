@@ -3,7 +3,6 @@
 
 
 class ResultSet(object):
-
     """ResultSet."""
 
     def __init__(self):

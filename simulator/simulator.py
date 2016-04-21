@@ -10,7 +10,6 @@ from . import channel
 
 
 class Simulator(object):
-
     """Simulator."""
 
     def __init__(self, encoder_factory, decoder_factory):
@@ -77,8 +76,10 @@ class Simulator(object):
 
     def run(self, done):
         """Run simulator."""
+        senders = self.sources + self.relays
         while not done():
-            map(lambda sender: sender.tick(), self.sources + self.relays)
+            for sender in senders:
+                sender.tick()
 
     def get_statistics(self):
         """Get statistics collected during run."""

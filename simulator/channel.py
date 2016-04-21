@@ -5,7 +5,6 @@ import random
 
 
 class Channel(object):
-
     """Channel with a specific loss rate."""
 
     def __init__(self, id, stats, channel_condition):
@@ -15,8 +14,11 @@ class Channel(object):
         self.receivers = []
 
         # The channel condition.
-        # A value of >=1.0 means that everything is dropped.
-        # A value of <=0.0 means that everything is transmitted.
+        # A value of >=1.0 means that 100% is dropped.
+        # A value of   0.6 means that  60% is dropped.
+        # A value of   0.5 means that  50% is dropped.
+        # A value of   0.2 means that  20% is dropped.
+        # A value of <=0.0 means that   0% is dropped.
         self.channel_condition = channel_condition
 
         # Statistics
@@ -30,7 +32,7 @@ class Channel(object):
                 sender_id=payload.sender.sender.id,
                 receiver_id=receiver.receiver.id)
 
-            if random.random() > self.channel_condition:
+            if random.random() < self.channel_condition:
                 self.stats[key % "dropped"] += 1
             else:
                 self.stats[key % "ok"] += 1

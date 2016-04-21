@@ -30,7 +30,7 @@ def resolve(ctx):
     ctx.add_dependency(resolve.ResolveVersion(
         name='kodo-python',
         git_repository='github.com/steinwurf/kodo-python.git',
-        major=9))
+        major=10))
 
 
 def configure(conf):

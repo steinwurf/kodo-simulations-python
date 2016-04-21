@@ -3,7 +3,6 @@
 
 
 class Packet(object):
-
     """Simple packet."""
 
     def __init__(self, sender, data):

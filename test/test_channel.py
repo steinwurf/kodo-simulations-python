@@ -7,9 +7,12 @@ sys.path.append('..')
 import unittest
 import simulator.channel
 
+
 class TestChannel(unittest.TestCase):
+    """Class for testing Channel."""
 
     def test_instantiation(self):
+        """Test instantiation."""
         id = "test_id"
         stats = {}
         channel_condition = 0.5

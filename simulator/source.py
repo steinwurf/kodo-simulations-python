@@ -8,7 +8,6 @@ from . import sender
 
 
 class Source(object):
-
     """Source."""
 
     def __init__(self, id, stats, encoder):

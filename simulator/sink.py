@@ -5,7 +5,6 @@ from . import receiver
 
 
 class Sink(object):
-
     """Sink."""
 
     def __init__(self, id, stats, decoder):

@@ -9,9 +9,12 @@ import unittest
 from mock import Mock
 import simulator.source
 
+
 class TestSource(unittest.TestCase):
+    """Class for testing Source."""
 
     def test_instantiation(self):
+        """Test instantiation."""
         id = "test_id"
         stats = {}
         encoder = Mock(name="encoder_object")

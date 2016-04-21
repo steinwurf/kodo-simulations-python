@@ -9,7 +9,6 @@ from . import sender
 
 
 class Relay(object):
-
     """Relay."""
 
     def __init__(self, id, stats, decoder):
