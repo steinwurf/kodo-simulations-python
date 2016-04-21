@@ -3,7 +3,6 @@
 
 
 class Sender(object):
-
     """Sender."""
 
     def __init__(self, id):

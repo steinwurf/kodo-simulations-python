@@ -6,4 +6,6 @@ every change, see the Git log.
 
 Latest
 ------
-* tbd
+* Minor: Fixed python 3.
+* Major: Converted transport probability to error probability.
+* Major: Initial release.

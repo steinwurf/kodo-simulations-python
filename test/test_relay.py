@@ -7,9 +7,12 @@ sys.path.append('..')
 import unittest
 import simulator.relay
 
+
 class TestPacket(unittest.TestCase):
+    """Class for testing Relay."""
 
     def test_instantiation(self):
+        """Test instantiation."""
         id = "test_id"
         stats = {}
         decoder = "decoder_object"

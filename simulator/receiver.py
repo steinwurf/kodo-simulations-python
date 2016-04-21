@@ -3,7 +3,6 @@
 
 
 class Receiver(object):
-
     """Receiver."""
 
     def __init__(self, id, stats, decoder):
@@ -30,9 +29,13 @@ class Receiver(object):
         self.decoder.read_payload(payload.data)
 
         key_template = "{}_%s_{}".format(
-                self.id, payload.sender.sender.id)
+            self.id, payload.sender.sender.id)
 
         if old_rank < self.decoder.rank():
             self.stats[key_template % "innovative_from"] += 1
         else:
             self.stats[key_template % "linear_dept_from"] += 1
+
+    def finished(self):
+        """Check if all data have been received."""
+        return self.decoder.is_complete()
