@@ -9,13 +9,41 @@ import kodo
 import simulator
 
 
+def print_setup(runs,
+                symbols,
+                symbol_size,
+                error_source_sink,
+                error_source_relay,
+                error_relay_sink,
+                relay_count,
+                source_systematic,
+                transmit_every_tick,
+                relay_recode):
+    """Print the setup."""
+    print("[--------]")
+    print("[ SETUP  ] configuration.simulation")
+    print("[        ]   Runs: {} runs".format(runs))
+    print("[ SETUP  ] configuration.coding")
+    print("[        ]        Relay Recode: {}".format(relay_recode))
+    print("[        ]     Size of Symbols: {} bytes".format(symbol_size))
+    print("[        ]   Number of Symbols: {} symbols".format(symbols))
+    print("[        ]   Source Systematic: {}".format(source_systematic))
+    print("[ SETUP  ] configuration.network")
+    print("[        ]             Relay Count: {} relays".format(relay_count))
+    print("[        ]     Relay To Sink Error: {}".format(error_relay_sink))
+    print("[        ]     Transmit Every Tick: {}".format(transmit_every_tick))
+    print("[        ]    Source To Sink Error: {}".format(error_source_sink))
+    print("[        ]   Source To Relay Error: {}".format(error_source_relay))
+    print("[--------]")
+
+
 def relay_simulation(symbols,
                      symbol_size,
                      error_source_sink,
                      error_source_relay,
                      error_relay_sink,
                      relay_count,
-                     source_non_systematic,
+                     source_systematic,
                      transmit_every_tick,
                      relay_recode):
     """
@@ -45,10 +73,10 @@ def relay_simulation(symbols,
 
     source = s.create_source()
 
-    if source_non_systematic:
-        source.encoder.set_systematic_off()
-    else:
+    if source_systematic:
         source.encoder.set_systematic_on()
+    else:
+        source.encoder.set_systematic_off()
 
     sink = s.create_sink()
 
@@ -112,11 +140,11 @@ def main():
         type=int,
         default=1)
     parser.add_argument(
-        "--source-non-systematic",
-        help="Whether the source is non-systematic. Systematic means that all "
+        "--source-systematic",
+        help="Whether the source is systematic. Systematic means that all "
              "packets in a generation are sent first once without coding. "
              "After sending everything once coding starts.",
-        default=False)
+        default=True)
     parser.add_argument(
         "--transmit-every-tick",
         help="Set true if the relay(s) should transmit in every tick or when "
@@ -129,6 +157,18 @@ def main():
 
     args = parser.parse_args()
 
+    print_setup(
+        runs=args.runs,
+        symbols=args.symbols,
+        symbol_size=args.symbol_size,
+        error_source_sink=args.error_source_sink,
+        error_source_relay=args.error_source_relay,
+        error_relay_sink=args.error_relay_sink,
+        relay_count=args.relay_count,
+        source_systematic=args.source_systematic,
+        transmit_every_tick=args.transmit_every_tick,
+        relay_recode=args.relay_recode)
+
     results = simulator.ResultSet()
     for run in range(args.runs):
         results.add(relay_simulation(
@@ -138,7 +178,7 @@ def main():
             error_source_relay=args.error_source_relay,
             error_relay_sink=args.error_relay_sink,
             relay_count=args.relay_count,
-            source_non_systematic=args.source_non_systematic,
+            source_systematic=args.source_systematic,
             transmit_every_tick=args.transmit_every_tick,
             relay_recode=args.relay_recode))
 

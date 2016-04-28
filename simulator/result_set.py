@@ -65,8 +65,8 @@ class ResultSet(object):
         # Create column string
         return "".join([
             "[ RESULT ] ", key, "\n",
-            "[        ]    Average: {:>6.2f} packets\n".format(average),
-            "[        ]        Max: {:>6.2f} packets".format(max_value),
+            "[        ]   Average: {:>6.2f} packets\n".format(average),
+            "[        ]       Max: {:>6.2f} packets".format(max_value),
             " ({:>+6.2f} packets)\n".format(max_diff),
-            "[        ]        Min: {:>6.2f} packets".format(min_value),
+            "[        ]       Min: {:>6.2f} packets".format(min_value),
             " ({:>+6.2f} packets)\n".format(min_diff)])
