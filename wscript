@@ -2,7 +2,6 @@
 # encoding: utf-8
 
 import os
-from waflib.TaskGen import feature, after_method
 
 APPNAME = 'kodo-simulations-python'
 VERSION = '0.0.0'
@@ -19,14 +18,9 @@ def build(bld):
     bld(features='cxx test',
         use=['kodo-python'])
 
-
-@feature('test')
-@after_method('apply_link')
-def test_simulations(self):
-    # Only execute the tests within the current project
-    if self.path.is_child_of(self.bld.srcnode):
-        if self.bld.has_tool_option('run_tests'):
-            self.bld.add_post_fun(exec_test_simulations)
+    if bld.is_toplevel():
+        if bld.has_tool_option('run_tests'):
+            bld.add_post_fun(exec_test_simulations)
 
 
 def exec_test_simulations(bld):
