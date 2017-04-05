@@ -1,0 +1,16 @@
+[
+    {
+        "name": "waf-tools",
+        "resolver": "git",
+        "method": "semver",
+        "major": 4,
+        "sources": ["github.com/steinwurf/waf-tools.git"]
+    },
+    {
+        "name": "kodo-python",
+        "resolver": "git",
+        "method": "semver",
+        "major": 11,
+        "sources": ["github.com/steinwurf/kodo-python.git"]
+    }
+]
