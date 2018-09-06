@@ -7,6 +7,9 @@ every change, see the Git log.
 Latest
 ------
 * tbd
+
+2.0.0
+-----
 * Major: Upgrade to kodo-python 13
 * Minor: Added an option to specify the finite field for the simulation.
 
