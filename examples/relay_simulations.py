@@ -10,6 +10,7 @@ import simulator
 
 
 def print_setup(runs,
+                field,
                 symbols,
                 symbol_size,
                 error_source_sink,
@@ -25,6 +26,7 @@ def print_setup(runs,
     print("[        ]   Runs: {} runs".format(runs))
     print("[ SETUP  ] configuration.coding")
     print("[        ]        Relay Recode: {}".format(relay_recode))
+    print("[        ]        Finite Field: {}".format(field))
     print("[        ]     Size of Symbols: {} bytes".format(symbol_size))
     print("[        ]   Number of Symbols: {} symbols".format(symbols))
     print("[        ]   Source Systematic: {}".format(source_systematic))
@@ -37,7 +39,8 @@ def print_setup(runs,
     print("[--------]")
 
 
-def relay_simulation(symbols,
+def relay_simulation(field,
+                     symbols,
                      symbol_size,
                      error_source_sink,
                      error_source_relay,
@@ -67,8 +70,9 @@ def relay_simulation(symbols,
                              | relayN |
                              +--------+
     """
-    encoder_factory = kodo.FullVectorEncoderFactoryBinary(symbols, symbol_size)
-    decoder_factory = kodo.FullVectorDecoderFactoryBinary(symbols, symbol_size)
+    field = getattr(kodo.field, field)
+    encoder_factory = kodo.RLNCEncoderFactory(field, symbols, symbol_size)
+    decoder_factory = kodo.RLNCDecoderFactory(field, symbols, symbol_size)
     s = simulator.Simulator(encoder_factory, decoder_factory)
 
     source = s.create_source()
@@ -104,11 +108,20 @@ def main():
     parser = argparse.ArgumentParser(
         description=relay_simulation.__doc__,
         formatter_class=argparse.RawTextHelpFormatter)
+
+    fields = ['binary', 'binary4', 'binary8', 'binary16']
+
     parser.add_argument(
         "--runs",
         help="Set number of runs.",
         type=int,
         default=100)
+    parser.add_argument(
+        '--field',
+        type=str,
+        help='The finite field to use',
+        choices=fields,
+        default='binary')
     parser.add_argument(
         "--symbols",
         help="Set symbols.",
@@ -159,6 +172,7 @@ def main():
 
     print_setup(
         runs=args.runs,
+        field=args.field,
         symbols=args.symbols,
         symbol_size=args.symbol_size,
         error_source_sink=args.error_source_sink,
@@ -172,6 +186,7 @@ def main():
     results = simulator.ResultSet()
     for run in range(args.runs):
         results.add(relay_simulation(
+            field=args.field,
             symbols=args.symbols,
             symbol_size=args.symbol_size,
             error_source_sink=args.error_source_sink,

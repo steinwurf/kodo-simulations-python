@@ -18,15 +18,11 @@ class Source(object):
         self.encoder = encoder
         self.stats = stats
 
-        # Create some data to encode. In this case we make a buffer
-        # with the same size as the encoder's block size (the max.
-        # amount a single encoder can encode)
-        # Just for fun - fill the input data with random data
-        data_in = os.urandom(encoder.block_size())
-
-        # Assign the data buffer to the encoder so that we can
-        # produce encoded symbols
-        encoder.set_const_symbols(data_in)
+        # Generate some random data to encode. We create a bytearray of the
+        # same size as the encoder's block size and assign it to the encoder.
+        # This bytearray must not go out of scope while the encoder exists!
+        self.data_in = bytearray(os.urandom(self.encoder.block_size()))
+        self.encoder.set_const_symbols(self.data_in)
 
     def tick(self):
         """Increment time."""
