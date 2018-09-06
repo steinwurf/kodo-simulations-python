@@ -12,6 +12,11 @@ class Receiver(object):
         self.decoder = decoder
         self.stats = stats
 
+        # Define the data_out bytearray where the symbols should be decoded
+        # This bytearray must not go out of scope while the encoder exists!
+        self.data_out = bytearray(self.decoder.block_size())
+        self.decoder.set_mutable_symbols(self.data_out)
+
     def receive(self, payload):
         """Receive payload."""
         key = "{}_receive_from_{}".format(self.id, payload.sender.sender.id)

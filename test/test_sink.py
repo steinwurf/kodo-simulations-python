@@ -3,8 +3,10 @@
 
 import sys
 sys.path.append('..')
+sys.path.append('mock')
 
 import unittest
+from mock import Mock
 import simulator.sink
 
 
@@ -15,7 +17,8 @@ class TestSink(unittest.TestCase):
         """Test instantiation."""
         id = "test_id"
         stats = {}
-        decoder = "decoder_object"
+        decoder = Mock(name="decoder_object")
+        decoder.block_size = Mock(return_value=100)
         c = simulator.sink.Sink(id, stats, decoder)
         self.assertEqual(c.receiver.id, id)
         self.assertEqual(c.receiver.decoder, decoder)

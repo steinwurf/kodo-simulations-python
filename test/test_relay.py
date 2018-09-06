@@ -3,8 +3,10 @@
 
 import sys
 sys.path.append('..')
+sys.path.append('mock')
 
 import unittest
+from mock import Mock
 import simulator.relay
 
 
@@ -15,7 +17,8 @@ class TestPacket(unittest.TestCase):
         """Test instantiation."""
         id = "test_id"
         stats = {}
-        decoder = "decoder_object"
+        decoder = Mock(name="decoder_object")
+        decoder.block_size = Mock(return_value=100)
         c = simulator.relay.Relay(id, stats, decoder)
         self.assertEqual(c.sender.id, id)
         self.assertEqual(c.receiver.id, id)
