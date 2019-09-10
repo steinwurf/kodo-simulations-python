@@ -12,7 +12,7 @@
         "name": "kodo-python",
         "resolver": "git",
         "method": "semver",
-        "major": 13,
+        "major": 14,
         "sources": [
             "github.com/steinwurf/kodo-python.git"
         ]
