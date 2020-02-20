@@ -71,9 +71,8 @@ def relay_simulation(field,
                              +--------+
     """
     field = getattr(kodo.field, field)
-    encoder_factory = kodo.RLNCEncoderFactory(field, symbols, symbol_size)
-    decoder_factory = kodo.RLNCDecoderFactory(field, symbols, symbol_size)
-    s = simulator.Simulator(encoder_factory, decoder_factory)
+    s = simulator.Simulator(kodo.RLNCEncoder, kodo.RLNCDecoder, field,
+                            symbols, symbol_size)
 
     source = s.create_source()
 

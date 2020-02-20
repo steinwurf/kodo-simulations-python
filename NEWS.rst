@@ -7,6 +7,9 @@ every change, see the Git log.
 Latest
 ------
 * tbd
+* Major: Upgrade to kodo-python 16
+* Major: Changed the Simulator() constructor to take the coder types and the
+  the coding parameters as arguments (replacing the coder factories).
 * Major: Upgrade to kodo-python 14
 
 2.0.0

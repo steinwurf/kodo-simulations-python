@@ -22,12 +22,12 @@ class Source(object):
         # same size as the encoder's block size and assign it to the encoder.
         # This bytearray must not go out of scope while the encoder exists!
         self.data_in = bytearray(os.urandom(self.encoder.block_size()))
-        self.encoder.set_const_symbols(self.data_in)
+        self.encoder.set_symbols_storage(self.data_in)
 
     def tick(self):
         """Increment time."""
         self.stats["source_sent"] += 1
 
-        payload_data = self.encoder.write_payload()
+        payload_data = self.encoder.produce_payload()
         p = packet.Packet(self, payload_data)
         self.sender.send(p)
