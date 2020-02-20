@@ -12,11 +12,15 @@ from . import channel
 class Simulator(object):
     """Simulator."""
 
-    def __init__(self, encoder_factory, decoder_factory):
+    def __init__(self, encoder_type, decoder_type, field, symbols,
+                 symbol_size):
         """Initialize Simulator."""
         super(Simulator, self).__init__()
-        self.encoder_factory = encoder_factory
-        self.decoder_factory = decoder_factory
+        self.encoder_type = encoder_type
+        self.decoder_type = decoder_type
+        self.field = field
+        self.symbols = symbols
+        self.symbol_size = symbol_size
 
         self.sources = []
         self.sinks = []
@@ -31,7 +35,8 @@ class Simulator(object):
         """Create Source."""
         if not id:
             id = self.__generate_name("source")
-        encoder = self.encoder_factory.build()
+        encoder = self.encoder_type(
+            self.field, self.symbols, self.symbol_size)
         s = source.Source(id, self.results, encoder)
         self.nodes.append(s)
         self.sources.append(s)
@@ -41,7 +46,8 @@ class Simulator(object):
         """Create Relay."""
         if not id:
             id = self.__generate_name("relay")
-        decoder = self.decoder_factory.build()
+        decoder = self.decoder_type(
+            self.field, self.symbols, self.symbol_size)
         r = relay.Relay(id, self.results, decoder)
         self.nodes.append(r)
         self.relays.append(r)
@@ -51,7 +57,8 @@ class Simulator(object):
         """Create Sink."""
         if not id:
             id = self.__generate_name("sink")
-        decoder = self.decoder_factory.build()
+        decoder = self.decoder_type(
+            self.field, self.symbols, self.symbol_size)
         s = sink.Sink(id, self.results, decoder)
         self.nodes.append(s)
         self.sinks.append(s)

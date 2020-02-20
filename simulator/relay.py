@@ -43,7 +43,7 @@ class Relay(object):
         # 2) We always transmit on every tick
         p = None
         if self.recode_on:
-            recode_buffer = self.receiver.decoder.write_payload()
+            recode_buffer = self.receiver.decoder.produce_payload()
             p = packet.Packet(self, recode_buffer)
         else:
             self.packet.sender = self
